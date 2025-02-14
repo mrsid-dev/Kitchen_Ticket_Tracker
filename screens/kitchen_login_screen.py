@@ -1,5 +1,6 @@
 import sqlite3, os, json
 from datetime import datetime, timezone
+from kivy.utils import platform
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
@@ -11,7 +12,26 @@ from kivy.uix.popup import Popup
 from db.db_initialization import db_path
 
 
-LAST_USER_FILE = "last_user.json"
+if platform == "android":
+    from android.permissions import request_permissions, Permission
+    from jnius import autoclass
+
+    request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
+
+    # ✅ Get Android's external app storage directory (same as `db_folder`)
+    PythonActivity = autoclass("org.kivy.android.PythonActivity")
+    app_context = PythonActivity.mActivity.getApplicationContext()
+    storage_folder = app_context.getExternalFilesDir(None).getAbsolutePath()
+
+else:
+    storage_folder = "./"  # Fallback for PC/Mac testing
+
+# ✅ Ensure the folder exists
+if not os.path.exists(storage_folder):
+    os.makedirs(storage_folder, exist_ok=True)
+
+# ✅ Define the path for last_user.json
+LAST_USER_FILE = os.path.join(storage_folder, "last_user.json")
 
 def save_last_logged_in(cook_name, cook_pin):
     """Save the last logged-in cook to a file."""
