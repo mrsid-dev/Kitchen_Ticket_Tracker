@@ -1,0 +1,23 @@
+asyncgui==0.6.3
+asynckivy==0.6.4
+certifi==2025.1.31
+charset-normalizer==3.4.1
+Cython==3.1.0a1
+docutils==0.21.2
+et_xmlfile==2.0.0
+filetype==1.2.0
+idna==3.10
+Kivy==2.3.1
+Kivy-examples==2.3.1
+Kivy-Garden==0.1.5
+kivymd @ git+https://github.com/kivymd/KivyMD.git@5ff9d0de78260383fae0737716879781257155a8
+materialyoucolor==2.0.10
+openpyxl==3.2.0b1
+pillow==11.1.0
+plyer==2.1.0
+py-androidbuild==0.9
+Pygments==2.19.1
+pyjnius==1.6.1
+pytz==2025.1
+requests==2.32.3
+urllib3==2.3.0
